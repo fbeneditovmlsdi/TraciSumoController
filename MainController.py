@@ -6,6 +6,7 @@ import sys
 import optparse
 import subprocess
 import random
+import datetime
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 try:
@@ -22,6 +23,7 @@ import traci
 
 
 def generate_routefile():
+
     random.seed(42)  # make tests reproducible
     N = 3600  # number of time steps
     # demand per second from different directions
@@ -64,6 +66,19 @@ def generate_routefile():
 #        <phase duration="31" state="rGrG"/>
 #        <phase duration="6"  state="ryry"/>
 #    </tlLogic>
+
+def run_simutaion():
+    step = 0
+    while traci.simulation.getMinExpectedNumber() > 0:
+        traci.simulationStep()  # Run a simulation step
+        car_li = traci.edge.getLastStepVehicleIDs("327676501#0")  # get the cars at the edge
+        if len(car_li) > 0:  # if there is a car
+            changeRoute = input('Type Y to change route: ')  #ask if the route should be changed
+            if changeRoute == 'Y':
+                traci.vehicle.setRouteID(str(car_li[0]), "routeshuttleDeviate1")
+        step+=1
+    traci.close()
+    sys.stdout.flush()
 
 
 def run():
@@ -108,9 +123,13 @@ if __name__ == "__main__":
     # first, generate the route file for this simulation
     generate_routefile()
 
+    curr_datetime = datetime.datetime.now()
+
+    output_file_name = "ufmaTracer"+curr_datetime.strftime("%Y-%m-%d %H:%M:%S")+".xml"
+
     # this is the normal way of using traci. sumo is started as a
     # subprocess and then the python script connects and runs
     traci.start([sumoBinary, "-c", "data/cross.sumocfg",
                              "--tripinfo-output", "tripinfo.xml",
-                             "--fcd-output", "sumoTrace.xml"])
-    run()
+                             "--fcd-output", output_file_name])
+    run_simutaion()
