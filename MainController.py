@@ -67,6 +67,7 @@ def generate_routefile():
 #        <phase duration="6"  state="ryry"/>
 #    </tlLogic>
 
+
 def run_simutaion():
     step = 0
     prev_car_li = []
@@ -74,12 +75,11 @@ def run_simutaion():
         traci.simulationStep()  # Run a simulation step
         car_li = traci.edge.getLastStepVehicleIDs("327676501#0")  # get the cars at the edge
         if isinstance(car_li, (list,)):
-            car_li.sort()
-        if car_li - prev_car_li > 0:  # if there is a new car
-            new_car_li = car_li - prev_car_li
+            new_car_li = set(car_li) - set(prev_car_li)
+        if len(new_car_li) > 0:  # if there is a new car
             prev_car_li = car_li
-            changeRoute = str(raw_input('Type Y to change route: ')) #ask if the route should be changed
-            if changeRoute == 'Y':
+            change_route = str(raw_input('Type Y to change route: ')) #ask if the route should be changed
+            if change_route == 'Y':
                 for vehicle_id in new_car_li:
                     traci.vehicle.setRouteID(str(vehicle_id), "routeshuttleDeviate1")
         step+=1
