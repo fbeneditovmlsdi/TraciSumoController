@@ -1,8 +1,8 @@
 <additionals>
-     <route id="routeshuttleRegular" color="1,1,0" edges="327676501#0 327676501#1 327676501#2 433033617#0 433033617#1 433033617#2 433033617#3 343294482#3 343294482#4 343294482#5 327676481#3 327676481#4 327676512#0"/>
+    <route id="routeshuttle0" color="1,1,0" edges="327676501#0 327676501#1 327676501#2 433033617#0 433033617#1 433033617#2 433033617#3 343294482#3 343294482#4 343294482#5 327676481#3 327676481#4 327676512#0"/>
     <rerouter id="rerouter_0" edges="327676501#0">	
 		<interval end="1e9">
-		   <routeProbReroute id="routeshuttleRegular"/>
+		   <routeProbReroute id="routeshuttle0"/>
 		</interval>
 	</rerouter>
     <rerouter id="rerouter_1" edges="327676512#0">
