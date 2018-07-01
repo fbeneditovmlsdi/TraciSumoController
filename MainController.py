@@ -73,7 +73,7 @@ def run_simutaion():
         traci.simulationStep()  # Run a simulation step
         car_li = traci.edge.getLastStepVehicleIDs("327676501#0")  # get the cars at the edge
         if len(car_li) > 0:  # if there is a car
-            changeRoute = str(input('Type Y to change route: ')) #ask if the route should be changed
+            changeRoute = str(raw_input('Type Y to change route: ')) #ask if the route should be changed
             if changeRoute == 'Y':
                 traci.vehicle.setRouteID(str(car_li[0]), "routeshuttleDeviate1")
         step+=1
