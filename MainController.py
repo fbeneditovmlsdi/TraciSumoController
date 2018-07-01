@@ -69,13 +69,19 @@ def generate_routefile():
 
 def run_simutaion():
     step = 0
+    prev_car_li = []
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()  # Run a simulation step
         car_li = traci.edge.getLastStepVehicleIDs("327676501#0")  # get the cars at the edge
-        if len(car_li) > 0:  # if there is a car
+        if isinstance(car_li, (list,)):
+            car_li.sort()
+        if car_li - prev_car_li > 0:  # if there is a new car
+            new_car_li = car_li - prev_car_li
+            prev_car_li = car_li
             changeRoute = str(raw_input('Type Y to change route: ')) #ask if the route should be changed
             if changeRoute == 'Y':
-                traci.vehicle.setRouteID(str(car_li[0]), "routeshuttleDeviate1")
+                for vehicle_id in new_car_li:
+                    traci.vehicle.setRouteID(str(vehicle_id), "routeshuttleDeviate1")
         step+=1
     traci.close()
     sys.stdout.flush()
