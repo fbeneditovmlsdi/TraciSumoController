@@ -6,6 +6,7 @@ import sys
 import optparse
 import subprocess
 import random
+import time
 import datetime
 
 # we need to import python modules from the $SUMO_HOME/tools directory
@@ -71,6 +72,9 @@ def generate_routefile():
 def run_simutaion():
     step = 0
     prev_car_li = []
+    with open("ConstBreakLog.txt", "w") as breakLog:
+        breakLog.write(str(time.time())+"\n")
+
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()  # Run a simulation step
         car_li = traci.edge.getLastStepVehicleIDs("327676501#0")  # get the cars at the edge
@@ -80,6 +84,9 @@ def run_simutaion():
             prev_car_li = car_li
             change_route = str(raw_input('Type Y to change route: ')) #ask if the route should be changed
             if change_route == 'Y':
+                print('step: '+str(step))
+                with open("ConstBreakLog.txt", "a") as breakLog:
+                    breakLog.write(str(step) + "\n")
                 for vehicle_id in new_car_li:
                     traci.vehicle.setRouteID(str(vehicle_id), "routeshuttleDeviate1")
         step+=1
