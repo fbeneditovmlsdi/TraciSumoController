@@ -73,7 +73,7 @@ def run_simutaion():
     step = 0
     prev_car_li = []
     with open("ConstBreakLog.txt", "w") as breakLog:
-        breakLog.write(str(time.time())+"\n")
+        breakLog.write(str(long(round(time.time() * 1000)))+"\n")
 
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()  # Run a simulation step
