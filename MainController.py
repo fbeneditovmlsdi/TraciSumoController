@@ -134,7 +134,7 @@ if __name__ == "__main__":
         sumoBinary = checkBinary('sumo-gui')
 
     # first, generate the route file for this simulation
-    generate_routefile()
+    # generate_routefile()
 
     curr_datetime = datetime.datetime.now()
 
