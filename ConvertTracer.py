@@ -19,7 +19,12 @@ class StrToInt:  # Code a string to int
 
 MUID_CONTAINS_STRING = True
 
-now = int(round(time.time() * 1000))
+try:
+    with open("ConstBreakLog.txt", "r") as breakLog:
+        breakLog_lines = breakLog.readlines
+        now = long(breakLog_lines[0])
+except IOError:
+    now = long(round(time.time() * 1000))
 
 tree = ET.parse('ufmaTrace.xml')
 root = tree.getroot()
