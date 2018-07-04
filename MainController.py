@@ -55,7 +55,7 @@ def run_simutaion(test_type = 0):
             # write the current time to the log
             breakLog.write(str(timestamp["8:00"])+"\n")
             # traci._vehicle.VehicleDomain.getDrivingDistance() # try to use to get distance between vehicle and edge
-            car_li = traci.simulation.getIDList()
+            car_li = traci.simulation.getLoadedIDList()
             if isinstance(car_li, (list,)):
                 new_car_li = set(car_li) - set(prev_car_li)
             if len(new_car_li) > 0:  # if there is a new car
