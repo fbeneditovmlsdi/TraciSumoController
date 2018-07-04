@@ -5,6 +5,6 @@
        <additional-files value="ufma.add.xml"/>
    </input>
     <output>
-        <fcd-output value="ufmaTrace.xml"/>
+        <fcd-output value="[SPEED_MOV]ufmaTrace.xml"/>
     </output>
 </configuration>

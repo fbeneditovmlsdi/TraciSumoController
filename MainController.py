@@ -95,11 +95,11 @@ if __name__ == "__main__":
     # this is the normal way of using traci. sumo is started as a
     # subprocess and then the python script connects and runs
     if test_type == t_type["PATH"]:
-        traci.start([sumoBinary, "-c", "ufma.sumocfg", "--fcd-output", "[PATH]"+str(output_file_name)])
+        traci.start([sumoBinary, "-c", "ufma.sumocfg"])
     if test_type == t_type["PUNCTUALITY"]:
-        traci.start([sumoBinary, "-c", "ufma_slow.sumocfg", "--fcd-output", "[PUNCTUALITY]"+str(output_file_name)])
+        traci.start([sumoBinary, "-c", "ufma_slow.sumocfg"])
     if test_type == t_type["SPEED_MOV"]:
         traci.start([sumoBinary, "-c", "ufma_speed.sumocfg"])
     if test_type == t_type["SPEED_STILL"]:
-        traci.start([sumoBinary, "-c", "ufma_slow.sumocfg", "--fcd-output", "[SPEED_STILL]"+str(output_file_name)])
+        traci.start([sumoBinary, "-c", "ufma_not_still.sumocfg"])
     run_simutaion(test_type)
