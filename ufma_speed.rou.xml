@@ -2,5 +2,5 @@
     <vType id="shuttle" vClass="coach"  maxSpeed="14.8" speedFactor="1." speedDev="0.4" />
     <route id="routeshuttleRegular" color="1,1,0" edges="327676501#0 327676501#1 327676501#2 433033617#0 433033617#1 433033617#2 433033617#3 343294482#3 343294482#4 343294482#5 327676481#3 327676481#4 327676512#0"/>
     <route id="routeshuttleDeviate1" color="1,1,0" edges="327676501#0 ﻿343493827#0 343493827#1 343493827#2 327676501#2 433033617#0 433033617#1 433033617#2 433033617#3 343294482#3 343294482#4 343294482#5 327676481#3 327676481#4 327676512#0"/>
-    <flow id="shuttle" type="shuttle" begin="0" end="100" number="3" route="routeshuttleRegular" departLane="best" />
+    <flow id="shuttle" type="shuttle" begin="0" end="200" number="3" route="routeshuttleRegular" departLane="best" />
 </routes>
