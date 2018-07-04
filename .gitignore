@@ -3,3 +3,6 @@ tools/
 traci/
 
 .idea/workspace.xml
+
+export_sumo_home.sh
+
