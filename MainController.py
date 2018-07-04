@@ -42,7 +42,7 @@ def run_simutaion(test_type = 0):
                 new_car_li = set(car_li) - set(prev_car_li)
             if len(new_car_li) > 0:  # if there is a new car
                 prev_car_li = car_li
-                change_route = str(raw_input('Type Y to change route: ')) #ask if the route should be changed
+                change_route = str(raw_input('Type Y to change route: ')) # ask if the route should be changed
                 if change_route == 'Y':
                     print('step: '+str(step))
                     with open("[PATH]ConstBreakLog.txt", "a") as breakLog:
@@ -69,10 +69,30 @@ def run_simutaion(test_type = 0):
                         breakLog.write("v_id: "+str(car)+", speed: "+str(speed)+", step: "+str(step) + "\n")
             step += 1
 
-
+    if test_type == t_type["PUNCTUALITY"]:
+        with open("[PUNCTUALITY]ConstBreakLog.txt", "w") as breakLog:
+            # write the current time to the log
+            breakLog.write(str(timestamp["8:00"])+"\n")
+        edges = ["327676501#0", "327676501#1", "327676501#2", "433033617#0", "433033617#1", "433033617#2",
+                 "433033617#3", "343294482#3", "343294482#4", "343294482#5", "327676481#3", "327676481#4", "327676512#0"]
+        car_li = [list()] * len(edges)
+        prev_car_li = [list()] * len(edges)
+        while traci.simulation.getMinExpectedNumber() > 0:
+            traci.simulationStep()  # Run a simulation step
+            for i in range(1, len(edges)):
+                car_li[i] = traci.edge.getLastStepVehicleIDs(edges[i])  # get the cars at the edge
+                new_car_li = set(car_li[i]) - set(prev_car_li[i])
+                if len(new_car_li) > 0:  # if there is a new car
+                    prev_car_li[i] = car_li[i]
+                    for vehicle_id in new_car_li:
+                        with open("[PUNCTUALITY]ConstBreakLog.txt", "a") as breakLog:
+                            breakLog.write("v_id: " + str(vehicle_id) + ", edge_id: " + str(edges[i]) + ", step: "
+                                           + str(step) + "\n")
+            step += 1
 
     traci.close()
     sys.stdout.flush()
+
 
 def get_options():
     optParser = optparse.OptionParser()
@@ -93,7 +113,7 @@ if __name__ == "__main__":
     else:
         sumoBinary = checkBinary('sumo-gui')
 
-    test_type = t_type["SPEED_MOV"]
+    test_type = t_type["PUNCTUALITY"]
 
     curr_datetime = datetime.datetime.now()
 
@@ -103,8 +123,12 @@ if __name__ == "__main__":
     # subprocess and then the python script connects and runs
     if test_type == t_type["PATH"]:
         traci.start([sumoBinary, "-c", "ufma.sumocfg"])
+    """
     if test_type == t_type["PUNCTUALITY"]:
-        traci.start([sumoBinary, "-c", "ufma_slow.sumocfg"])
+        traci.start([sumoBinary, "-c", "ufma_punctuality.sumocfg"])
+    """
+    if test_type == t_type["PUNCTUALITY"]:
+        traci.start([sumoBinary, "-c", "ufma.sumocfg"])
     if test_type == t_type["SPEED_MOV"]:
         traci.start([sumoBinary, "-c", "ufma_speed.sumocfg"])
     if test_type == t_type["SPEED_STILL"]:

@@ -1,8 +1,7 @@
 <configuration>
    <input>
        <net-file value="ufma.net.xml"/>
-       <route-files value="ufma_slow.rou.xml"/>
-       <additional-files value="ufma.add.xml"/>
+       <route-files value="ufma_punctuality.rou.xml"/>
    </input>
     <output>
         <fcd-output value="[PUNCTUALITY]ufmaTrace.xml"/>
