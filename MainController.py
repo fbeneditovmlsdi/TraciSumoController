@@ -70,7 +70,8 @@ def run_simutaion(test_type = 0):
             step += 1
 
     if test_type == t_type["PUNCTUALITY"]:
-        with open("[PUNCTUALITY]ConstBreakLog.txt", "w") as breakLog:
+        logfile_name = "[PUNCTUALITY]"+datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")+"ConstBreakLog.txt"
+        with open(logfile_name, "w") as breakLog:
             # write the current time to the log
             breakLog.write(str(timestamp["8:00"])+"\n")
         edges = ["327676501#0", "327676501#1", "327676501#2", "433033617#0", "433033617#1", "433033617#2",
@@ -85,7 +86,7 @@ def run_simutaion(test_type = 0):
                 if len(new_car_li) > 0:  # if there is a new car
                     prev_car_li[i] = car_li[i]
                     for vehicle_id in new_car_li:
-                        with open("[PUNCTUALITY]ConstBreakLog.txt", "a") as breakLog:
+                        with open(logfile_name, "a") as breakLog:
                             breakLog.write("v_id: " + str(vehicle_id) + ", edge_id: " + str(edges[i]) + ", step: "
                                            + str(step) + "\n")
             step += 1
