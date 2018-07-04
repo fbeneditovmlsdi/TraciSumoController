@@ -59,8 +59,7 @@ def run_simutaion(test_type = 0):
             traci.simulationStep()
             # traci._vehicle.VehicleDomain.getDrivingDistance() # try to use to get distance between vehicle and edge
             car_li = set(car_li+traci.simulation.getDepartedIDList()) - set(traci.simulation.getArrivedIDList())
-            if isinstance(car_li, (list,)):
-                new_car_li = set(car_li) - set(prev_car_li)
+            new_car_li = set(car_li) - set(prev_car_li)
             if len(new_car_li) > 0:  # if there is a new car
                 prev_car_li = car_li
                 print('*-------------- New Car Detected --------------*')
