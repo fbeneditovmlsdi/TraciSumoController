@@ -51,13 +51,14 @@ def run_simutaion(test_type = 0):
                         traci.vehicle.setRouteID(str(vehicle_id), "routeshuttleDeviate1")
             step+=1
     if test_type == t_type["SPEED_MOV"]:
+        car_li = []
         with open("ConstBreakLog.txt", "w") as breakLog:
             # write the current time to the log
             breakLog.write(str(timestamp["8:00"])+"\n")
         while traci.simulation.getMinExpectedNumber() > 0:
             traci.simulationStep()
             # traci._vehicle.VehicleDomain.getDrivingDistance() # try to use to get distance between vehicle and edge
-            car_li = traci.simulation.getLoadedIDList()
+            car_li = set(car_li+traci.simulation.getDepartedIDList()) - set(traci.simulation.getArrivedIDList())
             if isinstance(car_li, (list,)):
                 new_car_li = set(car_li) - set(prev_car_li)
             if len(new_car_li) > 0:  # if there is a new car
