@@ -4,4 +4,7 @@
        <route-files value="ufma_speed.rou.xml"/>
        <additional-files value="ufma.add.xml"/>
    </input>
+    <output>
+        <fcd-output value="ufmaTrace.xml"/>
+    </output>
 </configuration>

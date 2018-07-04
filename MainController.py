@@ -99,7 +99,7 @@ if __name__ == "__main__":
     if test_type == t_type["PUNCTUALITY"]:
         traci.start([sumoBinary, "-c", "ufma_slow.sumocfg", "--fcd-output", "[PUNCTUALITY]"+str(output_file_name)])
     if test_type == t_type["SPEED_MOV"]:
-        traci.start([sumoBinary, "-c", "ufma_speed.sumocfg", "--fcd-output", "[SPEED_MOV]"+str(output_file_name)])
+        traci.start([sumoBinary, "-c", "ufma_speed.sumocfg"])
     if test_type == t_type["SPEED_STILL"]:
         traci.start([sumoBinary, "-c", "ufma_slow.sumocfg", "--fcd-output", "[SPEED_STILL]"+str(output_file_name)])
     run_simutaion(test_type)
