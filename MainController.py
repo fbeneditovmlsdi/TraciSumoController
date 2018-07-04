@@ -54,6 +54,8 @@ def run_simutaion(test_type = 0):
         with open("ConstBreakLog.txt", "w") as breakLog:
             # write the current time to the log
             breakLog.write(str(timestamp["8:00"])+"\n")
+        while traci.simulation.getMinExpectedNumber() > 0:
+            traci.simulationStep()
             # traci._vehicle.VehicleDomain.getDrivingDistance() # try to use to get distance between vehicle and edge
             car_li = traci.simulation.getLoadedIDList()
             if isinstance(car_li, (list,)):
