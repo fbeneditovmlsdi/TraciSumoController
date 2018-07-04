@@ -1,7 +1,7 @@
 <configuration>
    <input>
        <net-file value="ufma.net.xml"/>
-       <route-files value="ufma.rou.xml"/>
+       <route-files value="ufma_speed.rou.xml"/>
        <additional-files value="ufma.add.xml"/>
    </input>
 </configuration>

@@ -9,31 +9,33 @@ class StrToInt:  # Code a string to int
     def __init__(self):
         self.strSet = []
 
-    def get_int(self, buffer):
-        if self.strSet.count(buffer) > 0:
-            return (self.strSet.index(buffer) + 1) * 100
+    def get_int(self, str_buffer):
+        if self.strSet.count(str_buffer) > 0:
+            return (self.strSet.index(str_buffer) + 1) * 100
         else:
-            self.strSet.append(buffer)
-            return (self.strSet.index(buffer) + 1) * 100
+            self.strSet.append(str_buffer)
+            return (self.strSet.index(str_buffer) + 1) * 100
 
 
 MUID_CONTAINS_STRING = True
 
 try:
     with open("ConstBreakLog.txt", "r") as breakLog:
-        breakLog_lines = breakLog.readlines
-        now = long(breakLog_lines[0])
+        breakLog_lines = breakLog.readlines()
+        now = long(float(breakLog_lines[0]))
 except IOError:
     now = long(round(time.time() * 1000))
+    # now = 1530615660000 # 8:01
+    # now = 1530625560000 # 10:45
 
 tree = ET.parse('ufmaTrace.xml')
 root = tree.getroot()
-i=0
+i = 0
 lines_arr = []
 str_to_int = StrToInt()  # This will code the string parts of vehicle.id to int
 
 for timestep in root:
-    timestamp = str(now + int(float(timestep.get('time'))*500))
+    timestamp = str(now + int(float(timestep.get('time'))*1000))
     for vehicle in timestep:
         if MUID_CONTAINS_STRING:
             id_parts = str(vehicle.get('id')).split('.')
@@ -55,4 +57,3 @@ fo = open("ufmaTrace.txt", "w")
 fo.writelines(lines_arr)
 
 print(lines_arr[:20])
-

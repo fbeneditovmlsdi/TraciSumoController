@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/TraciSumoController.iml" filepath="$PROJECT_DIR$/.idea/TraciSumoController.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../sumo-doc/tutorial/city_mobil/.idea/city_mobil.iml" filepath="$PROJECT_DIR$/../sumo-doc/tutorial/city_mobil/.idea/city_mobil.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../sumo-doc/tutorial/traci_tls/.idea/traci_tls.iml" filepath="$PROJECT_DIR$/../sumo-doc/tutorial/traci_tls/.idea/traci_tls.iml" />
     </modules>
   </component>
 </project>
