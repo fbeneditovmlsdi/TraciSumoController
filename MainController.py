@@ -49,9 +49,9 @@ def run_simutaion(test_type = 0):
                         breakLog.write(str(step) + "\n")
                     for vehicle_id in new_car_li:
                         traci.vehicle.setRouteID(str(vehicle_id), "routeshuttleDeviate1")
-            step+=1
+            step += 1
     if test_type == t_type["SPEED_MOV"]:
-        threshold = 30.0/3.6
+        threshold = 13.89
         car_li = set([])
         with open("[SPEED_MOV]ConstBreakLog.txt", "w") as breakLog:
             # write the current time to the log
@@ -63,7 +63,7 @@ def run_simutaion(test_type = 0):
                 car_li.add(car)
             car_li = car_li - set(traci.simulation.getArrivedIDList())
             for car in car_li:
-                speed = traci.vehicle.getSpeed(car)
+                speed = round(traci.vehicle.getSpeed(car), 2)
                 if speed > threshold:
                     with open("[SPEED_MOV]ConstBreakLog.txt", "a") as breakLog:
                         breakLog.write("v_id: "+str(car)+", speed: "+str(speed)+", step: "+str(step) + "\n")
