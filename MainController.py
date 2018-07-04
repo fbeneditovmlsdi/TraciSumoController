@@ -30,7 +30,7 @@ def run_simutaion(test_type = 0):
     step = 0
     prev_car_li = []
     if test_type == t_type["PATH"]:
-        with open("ConstBreakLog.txt", "w") as breakLog:
+        with open("[PATH]ConstBreakLog.txt", "w") as breakLog:
             # write the current time to the log
             breakLog.write(str(timestamp["NOW"])+"\n")
 
@@ -45,14 +45,15 @@ def run_simutaion(test_type = 0):
                 change_route = str(raw_input('Type Y to change route: ')) #ask if the route should be changed
                 if change_route == 'Y':
                     print('step: '+str(step))
-                    with open("ConstBreakLog.txt", "a") as breakLog:
+                    with open("[PATH]ConstBreakLog.txt", "a") as breakLog:
                         breakLog.write(str(step) + "\n")
                     for vehicle_id in new_car_li:
                         traci.vehicle.setRouteID(str(vehicle_id), "routeshuttleDeviate1")
             step+=1
     if test_type == t_type["SPEED_MOV"]:
+        threshold = 17.0/3.6
         car_li = set([])
-        with open("ConstBreakLog.txt", "w") as breakLog:
+        with open("[SPEED_MOV]ConstBreakLog.txt", "w") as breakLog:
             # write the current time to the log
             breakLog.write(str(timestamp["8:00"])+"\n")
         while traci.simulation.getMinExpectedNumber() > 0:
@@ -61,12 +62,14 @@ def run_simutaion(test_type = 0):
             for car in traci.simulation.getDepartedIDList():
                 car_li.add(car)
             car_li = car_li - set(traci.simulation.getArrivedIDList())
-            new_car_li = set(car_li) - set(prev_car_li)
-            if len(new_car_li) > 0:  # if there is a new car
-                prev_car_li = car_li
-                print('*-------------- New Car Detected --------------*')
-                print('CarsList: '+str(car_li)+"\nNewCarsList"+str(new_car_li))
-                print('*-------------- New Car Detected --------------*\n')
+            for car in car_li:
+                speed = traci.vehicle.getSpeed(car)
+                if speed > threshold:
+                    with open("[SPEED_MOV]ConstBreakLog.txt", "a") as breakLog:
+                        breakLog.write("v_id: "+str(car)+", step: "+str(step) + "\n")
+            step += 1
+
+
 
     traci.close()
     sys.stdout.flush()
@@ -107,3 +110,16 @@ if __name__ == "__main__":
     if test_type == t_type["SPEED_STILL"]:
         traci.start([sumoBinary, "-c", "ufma_not_still.sumocfg"])
     run_simutaion(test_type)
+
+"""
+# Get all new cars
+            for car in traci.simulation.getDepartedIDList():
+                car_li.add(car)
+            car_li = car_li - set(traci.simulation.getArrivedIDList())
+            new_car_li = set(car_li) - set(prev_car_li)
+            if len(new_car_li) > 0:  # if there is a new car
+                prev_car_li = car_li
+                print('*-------------- New Car Detected --------------*')
+                print('CarsList: '+str(car_li)+"\nNewCarsList"+str(new_car_li))
+                print('*-------------- New Car Detected --------------*\n')
+"""
