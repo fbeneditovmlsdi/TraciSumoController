@@ -128,7 +128,7 @@ if __name__ == "__main__":
         traci.start([sumoBinary, "-c", "ufma_punctuality.sumocfg"])
     """
     if test_type == t_type["PUNCTUALITY"]:
-        traci.start([sumoBinary, "-c", "ufma.sumocfg"])
+        traci.start([sumoBinary, "-c", "ufma_punctuality.sumocfg"])
     if test_type == t_type["SPEED_MOV"]:
         traci.start([sumoBinary, "-c", "ufma_speed.sumocfg"])
     if test_type == t_type["SPEED_STILL"]:
