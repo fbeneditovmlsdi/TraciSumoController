@@ -80,7 +80,7 @@ def run_simutaion(test_type = 0):
         prev_car_li = [list()] * len(edges)
         while traci.simulation.getMinExpectedNumber() > 0:
             traci.simulationStep()  # Run a simulation step
-            for i in range(1, len(edges)):
+            for i in range(0, len(edges)):
                 car_li[i] = traci.edge.getLastStepVehicleIDs(edges[i])  # get the cars at the edge
                 new_car_li = set(car_li[i]) - set(prev_car_li[i])
                 if len(new_car_li) > 0:  # if there is a new car
