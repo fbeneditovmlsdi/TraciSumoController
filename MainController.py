@@ -111,18 +111,17 @@ def run_simutaion(test_type = 0):
             car_set.update(traci.edge.getLastStepVehicleIDs(edges[0])) # get the cars at the edge
 
             car_li = list(car_set)
-            if isinstance(car_li, (list,)):
-                print(car_li)
-                for i in range(0, len(list)):
-                    x1, y1 = traci.vehicle.getPosition(car_li[i])
-                    for j in range(i, len(list)):
-                        x2, y2 = traci.vehicle.getPosition(car_li[j])
-                        dist = distance(x1, y1, x2, y2)
-                        dist_string = "v_id1: " + str(car_li[i]) + ", v_id2: " + str(car_li[j]) + ", distance: " + str(dist)
-                        print(dist_string)
-                        with open(logfile_name, "a") as breakLog:
-                            breakLog.write(dist_string + "\n")
-                step += 1
+            print(car_li)
+            for i in range(0, len(car_li)):
+                x1, y1 = traci.vehicle.getPosition(car_li[i])
+                for j in range(i, len(list)):
+                    x2, y2 = traci.vehicle.getPosition(car_li[j])
+                    dist = distance(x1, y1, x2, y2)
+                    dist_string = "v_id1: " + str(car_li[i]) + ", v_id2: " + str(car_li[j]) + ", distance: " + str(dist)
+                    print(dist_string)
+                    with open(logfile_name, "a") as breakLog:
+                        breakLog.write(dist_string + "\n")
+            step += 1
 
     traci.close()
     sys.stdout.flush()
