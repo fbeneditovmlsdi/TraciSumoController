@@ -109,7 +109,9 @@ def run_simutaion(test_type = 0):
         while traci.simulation.getMinExpectedNumber() > 0:
             traci.simulationStep()  # Run a simulation step
             car_set.update(traci.edge.getLastStepVehicleIDs(edges[0])) # get the cars at the edge
+
             car_li = list(car_set)
+            print(car_li)
             for i in range(0, len(list)):
                 x1, y1 = traci.vehicle.getPosition(car_li[i])
                 for j in range(i, len(list)):
