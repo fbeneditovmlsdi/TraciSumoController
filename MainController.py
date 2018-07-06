@@ -114,7 +114,7 @@ def run_simutaion(test_type = 0):
             print(car_li)
             for i in range(0, len(car_li)):
                 x1, y1 = traci.vehicle.getPosition(car_li[i])
-                for j in range(i, len(car_li)):
+                for j in range(i+1, len(car_li)):
                     x2, y2 = traci.vehicle.getPosition(car_li[j])
                     dist = distance(x1, y1, x2, y2)
                     dist_string = "v_id1: " + str(car_li[i]) + ", v_id2: " + str(car_li[j]) + ", distance: " + str(dist)
