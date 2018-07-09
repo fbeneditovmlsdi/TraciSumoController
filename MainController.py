@@ -105,14 +105,24 @@ def run_simutaion(test_type = 0):
         with open(logfile_name, "w") as breakLog:
             # write the current time to the log
             breakLog.write(str(timestamp["8:00"])+"\n")
+
         car_set = set([])
+        set_speed1 = False
+        set_speed2 = False
 
         while traci.simulation.getMinExpectedNumber() > 0:
             traci.simulationStep()  # Run a simulation step
-            car_set.update(traci.edge.getLastStepVehicleIDs(edges[0]))  # add all cars at the first edge
 
+            car_set.update(traci.edge.getLastStepVehicleIDs(edges[0]))  # add all cars at the first edge
             car_li = list(car_set)
-            print(car_li)
+
+            if not set_speed2:
+                if (not set_speed1) and len(car_li) == 1:
+                    traci.vehicle.setMaxSpeed(car_li[0], 0.1)
+                    set_speed1 = True
+                if set_speed1 and len(car_li) == 3:
+                    traci.vehicle.setMaxSpeed(car_li[0], 8.33)
+                    set_speed2 = True
             for i in range(0, len(car_li)):
                 x1, y1 = traci.vehicle.getPosition(car_li[i])
                 for j in range(i+1, len(car_li)):
