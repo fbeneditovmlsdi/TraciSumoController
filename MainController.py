@@ -19,14 +19,17 @@ try:
     from sumolib import checkBinary  # noqa
 except ImportError:
     sys.exit(
-        "please declare environment variable 'SUMO_HOME' as the root directory of your sumo installation (it should contain folders 'bin', 'tools' and 'docs')")
+        "please declare environment variable 'SUMO_HOME' as the root directory of your sumo installation "
+        "(it should contain folders 'bin', 'tools' and 'docs')")
 
 import traci
 
-t_type = {"PATH":0, "PUNCTUALITY":1, "SPEED_MOV":2, "SPEED_STILL":3, "DISTANCE":4,}
-timestamp = {"NOW":long(round(time.time() * 1000)), "4:00":1530601200000, "8:00":1530615600000, "10:46":1530625560000}
+t_type = {"PATH": 0, "PUNCTUALITY": 1, "SPEED_MOV": 2, "SPEED_STILL": 3, "DISTANCE": 4}
+timestamp = {"NOW": long(round(time.time() * 1000)), "4:00": 1530601200000, "8:00": 1530615600000,
+             "10:46": 1530625560000}
 edges = ["327676501#0", "327676501#1", "327676501#2", "433033617#0", "433033617#1", "433033617#2", "433033617#3",
          "343294482#3", "343294482#4", "343294482#5", "327676481#3", "327676481#4", "327676512#0"]
+
 
 def distance(x1,y1, x2,y2):
     dist = ((x1-x2)**2)+((y1-y2)**2)
@@ -98,7 +101,7 @@ def run_simutaion(test_type = 0):
             step += 1
 
     if test_type == t_type["DISTANCE"]:
-        logfile_name = "[DISTANCE]"+datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")+"ConstBreakLog.txt"
+        logfile_name = "[DISTANCE]" + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "ConstBreakLog.txt"
         with open(logfile_name, "w") as breakLog:
             # write the current time to the log
             breakLog.write(str(timestamp["8:00"])+"\n")
@@ -106,7 +109,7 @@ def run_simutaion(test_type = 0):
 
         while traci.simulation.getMinExpectedNumber() > 0:
             traci.simulationStep()  # Run a simulation step
-            car_set.update(traci.edge.getLastStepVehicleIDs(edges[0])) # get the cars at the edge
+            car_set.update(traci.edge.getLastStepVehicleIDs(edges[0]))  # add all cars at the first edge
 
             car_li = list(car_set)
             print(car_li)
@@ -115,7 +118,8 @@ def run_simutaion(test_type = 0):
                 for j in range(i+1, len(car_li)):
                     x2, y2 = traci.vehicle.getPosition(car_li[j])
                     dist = distance(x1, y1, x2, y2)
-                    dist_string = "v_id1: " + str(car_li[i]) + ", v_id2: " + str(car_li[j]) + ", distance: " + str(dist)
+                    dist_string = "step: " + str(step) + ", v_id1: " + str(car_li[i]) + ", v_id2: " + str(car_li[j]) + \
+                                  ", distance: " + str(dist)
                     print(dist_string)
                     with open(logfile_name, "a") as breakLog:
                         breakLog.write(dist_string + "\n")
