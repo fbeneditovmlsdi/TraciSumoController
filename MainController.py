@@ -25,7 +25,8 @@ import traci
 
 t_type = {"PATH":0, "PUNCTUALITY":1, "SPEED_MOV":2, "SPEED_STILL":3, "DISTANCE":4,}
 timestamp = {"NOW":long(round(time.time() * 1000)), "4:00":1530601200000, "8:00":1530615600000, "10:46":1530625560000}
-
+edges = ["327676501#0", "327676501#1", "327676501#2", "433033617#0", "433033617#1", "433033617#2", "433033617#3",
+         "343294482#3", "343294482#4", "343294482#5", "327676481#3", "327676481#4", "327676512#0"]
 
 def distance(x1,y1, x2,y2):
     dist = ((x1-x2)**2)+((y1-y2)**2)
@@ -80,8 +81,7 @@ def run_simutaion(test_type = 0):
         with open(logfile_name, "w") as breakLog:
             # write the current time to the log
             breakLog.write(str(timestamp["8:00"])+"\n")
-        edges = ["327676501#0", "327676501#1", "327676501#2", "433033617#0", "433033617#1", "433033617#2",
-                 "433033617#3", "343294482#3", "343294482#4", "343294482#5", "327676481#3", "327676481#4", "327676512#0"]
+
         car_li = [list()] * len(edges)
         prev_car_li = [list()] * len(edges)
         while traci.simulation.getMinExpectedNumber() > 0:
@@ -102,8 +102,6 @@ def run_simutaion(test_type = 0):
         with open(logfile_name, "w") as breakLog:
             # write the current time to the log
             breakLog.write(str(timestamp["8:00"])+"\n")
-        edges = ["327676501#0", "327676501#1", "327676501#2", "433033617#0", "433033617#1", "433033617#2",
-                 "433033617#3", "343294482#3", "343294482#4", "343294482#5", "327676481#3", "327676481#4", "327676512#0"]
         car_set = set([])
 
         while traci.simulation.getMinExpectedNumber() > 0:
@@ -163,7 +161,7 @@ if __name__ == "__main__":
     if test_type == t_type["SPEED_STILL"]:
         traci.start([sumoBinary, "-c", "ufma_not_still.sumocfg"])
     if test_type == t_type["DISTANCE"]:
-        traci.start([sumoBinary, "-c", "ufma.sumocfg"])
+        traci.start([sumoBinary, "-c", "ufma_distance.sumocfg"])
     run_simutaion(test_type)
 
 """

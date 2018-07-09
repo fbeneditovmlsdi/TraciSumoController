@@ -1,0 +1,10 @@
+<configuration>
+   <input>
+       <net-file value="ufma.net.xml"/>
+       <route-files value="ufma_distance.rou.xml"/>
+       <additional-files value="ufma.add.xml"/>
+   </input>
+    <output>
+        <fcd-output value="ufmaTrace.xml"/>
+    </output>
+</configuration>
