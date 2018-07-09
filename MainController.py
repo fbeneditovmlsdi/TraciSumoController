@@ -109,6 +109,7 @@ def run_simutaion(test_type = 0):
         car_set = set([])
         set_speed1 = False
         set_speed2 = False
+        first_vehicle = ""
 
         while traci.simulation.getMinExpectedNumber() > 0:
             traci.simulationStep()  # Run a simulation step
@@ -118,10 +119,11 @@ def run_simutaion(test_type = 0):
 
             if not set_speed2:
                 if (not set_speed1) and len(car_li) == 1:
-                    traci.vehicle.setMaxSpeed(car_li[0], 0.1)
+                    first_vehicle = car_li[0]
+                    traci.vehicle.setMaxSpeed(first_vehicle, 0.5)
                     set_speed1 = True
                 if set_speed1 and len(car_li) == 3:
-                    traci.vehicle.setMaxSpeed(car_li[0], 5.3)
+                    traci.vehicle.setMaxSpeed(first_vehicle, 5.3)
                     set_speed2 = True
             for i in range(0, len(car_li)):
                 x1, y1 = traci.vehicle.getPosition(car_li[i])
