@@ -1,7 +1,7 @@
 <routes>
-    <vType id="shuttle" vClass="coach"  maxSpeed="8.33" speedFactor="1." speedDev="0.0" />
-    <vType id="shuttle_short_dist" vClass="coach" lenght="3.0" minGap="1.5"  maxSpeed="8.33" speedFactor="1." speedDev="0.0" accel="5.1" decel="9.5" />
+    <vType id="shuttle_regular_dist" vClass="coach" minGap="5.5"  maxSpeed="5.3" speedFactor="1." speedDev="0.0" accel="6.1" decel="9.5" />
+    <vType id="shuttle_short_dist" vClass="coach" minGap="1.5"  maxSpeed="5.3" speedFactor="1." speedDev="0.0" accel="6.1" decel="9.5" />
     <route id="routeshuttleRegular" color="1,1,0" edges="327676501#0 327676501#1 327676501#2 433033617#0 433033617#1 433033617#2 433033617#3 343294482#3 343294482#4 343294482#5 327676481#3 327676481#4 327676512#0"/>
     <route id="routeshuttleDeviate1" color="1,1,0" edges="327676501#0 ﻿343493827#0 343493827#1 343493827#2 327676501#2 433033617#0 433033617#1 433033617#2 433033617#3 343294482#3 343294482#4 343294482#5 327676481#3 327676481#4 327676512#0"/>
-    <flow id="shuttle_short_dist" type="shuttle_short_dist" begin="0" end="50" number="3" route="routeshuttleRegular" departLane="best" />
+    <flow id="shuttle_regular_dist" type="shuttle_regular_dist" begin="0" end="50" number="3" route="routeshuttleRegular" departLane="best" />
 </routes>
